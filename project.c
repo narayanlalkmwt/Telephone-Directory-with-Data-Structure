@@ -1,11 +1,12 @@
-#include <stdio.h>
+#include<stdio.h>
 #include<conio.h>
 #include<malloc.h>
 #include<process.h>
+#include<stdlib.h>
 struct node
 {
 	char name[20];
-	long int contact;
+	char contact[11];
 	struct node *link;
 }*first,*new_node,*save;
 void add()
@@ -16,10 +17,10 @@ void add()
 		printf("\nNot Enough Memory...");
 		return;
 	}
-	printf("Enter the Name:");
+	printf("Enter the Name: ");
 	scanf("%s",new_node->name);
-	printf("Enter the Contact Number:");
-	scanf("%ld",&new_node->contact);
+	printf("Enter the Contact Number: ");
+	scanf("%s",new_node->contact);
 	new_node->link=NULL;
 	if(first==NULL)
 	{
@@ -36,6 +37,29 @@ void add()
 }
 void search()
 {
+	char x[20];
+    printf("Enter the Name: ");
+    scanf("%s", x);
+    if (first == NULL)
+    {
+        printf("\nList is Empty");
+        return;
+    }
+    save = first;
+    while (strcmp(save->name, x) != 0 && (save->link != NULL))
+    {
+        save = save->link;
+    }
+    if (strcmp(save->name, x) == 0)
+    {
+        printf("\nData is Found");
+    }
+    else
+    {
+        printf("\nData is Not Found");
+    }
+    getch();
+    return;
 }
 void view()
 {
@@ -50,18 +74,86 @@ void view()
     while(save != NULL) 
 	{
         printf("\n%s\t\t",save->name);
-        printf("%ld",save->contact);
-        //printf("\n Link: %d",save->link);
-        //printf("\n Add of node: %d",save);
+        printf("%s",save->contact);
         save = save->link;
     }
     getch();
 }
 void update()
 {
+    char x[20];
+    printf("Enter the Old Name: ");
+    scanf("%s", x);
+
+    if (first == NULL)
+    {
+        printf("\nList is Empty");
+        return;
+    }
+
+    struct node *save = first;
+    while (save != NULL && strcmp(save->name, x) != 0)
+    {
+        save = save->link;
+    }
+    if (save != NULL)
+    {
+        printf("Enter the New Name: ");
+        scanf("%s", save->name);
+        printf("Enter the Contact Number: ");
+        scanf("%s", save->contact);
+        printf("\nContact Updated Successfully");
+    }
+    else
+    {
+        printf("\nData is Not Found");
+    }
+    getch();
+    return;
 }
 void delete()
 {
+    char x[20];
+    printf("Enter the Name to Delete: ");
+    scanf("%s", x);
+
+    if (first == NULL)
+    {
+        printf("\nList is Empty\n");
+        return;
+    }
+
+    struct node *current = first;
+    struct node *prev = NULL;
+
+    // Search for the node to delete
+    while (current != NULL && strcmp(current->name, x) != 0)
+    {
+        prev = current;
+        current = current->link;
+    }
+
+    if (current == NULL)
+    {
+        printf("\nData not found for deletion");
+    }
+    else
+    {
+        // If the node to be deleted is the first node
+        if (prev == NULL)
+        {
+            first = current->link;
+        }
+        else
+        {
+            prev->link = current->link;
+        }
+
+        printf("\nRecord for %s is Successfully Deleted\n", x);
+        free(current);
+    }
+    getch();
+    return;
 }
 void main()
 {
