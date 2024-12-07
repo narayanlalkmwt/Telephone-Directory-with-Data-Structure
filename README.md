@@ -18,7 +18,7 @@ This project implements a **Telephone Directory** using the **Linked List** data
 This project implements the telephone directory in C language, where the linked list is used for dynamic storage and manipulation of contact details.
 
 ### 🗂️ Files
-- `main.[file extension]`: Contains the main program logic and menu-driven interface.
+- `project.c`: Contains the main program logic and menu-driven interface.
 - `README.md`: Project documentation (this file).
 
 ---
